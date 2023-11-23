@@ -1,5 +1,6 @@
 package com.webproject.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import jakarta.persistence.Column;
@@ -13,5 +14,7 @@ public class Comment {
     private double rating;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+    @TableField(exist = false)
+    private String time;
 }
 

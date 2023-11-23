@@ -4,7 +4,7 @@ import com.webproject.entity.Author;
 
 public interface AuthorService {
 
-    public Author selectByAname(String aname);
-    public Author selectByAid(int aid);
-    public boolean addAuthor(int uid, String aname);
+    Author selectByAname(String aname);
+    Author selectByAid(int aid);
+    boolean addAuthor(int uid, String aname);
 }

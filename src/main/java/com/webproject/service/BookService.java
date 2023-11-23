@@ -13,12 +13,12 @@ public interface BookService {
     Result updateBook(BookDto.UpdateBookDto updateBookDto);
     boolean isBookEmpty(String bname);
     List<BookDto.BooksForAuthor> getBookByAid(int aid);
-    public List<Type> getAllType();
-    public Book getBookByBid(int bid);
-    public Result updateBookCover(String cover,int bid);
-    public Result updateBookStatus(String status,int bid);
-    public List<Book> getLastFourBook();
-    public BookVo.BookDetail getBookDetail(int bid);
-    public Result collectionBook(int bid,int uid);
-    public boolean isCollection(int uid, int bid);
+    List<Type> getAllType();
+    Book getBookByBid(int bid);
+    Result updateBookCover(String cover,int bid);
+    Result updateBookStatus(String status,int bid);
+    List<Book> getLastFourBook();
+    BookVo.BookDetail getBookDetail(int bid);
+    Result collectionBook(int bid,int uid);
+    boolean isCollection(int uid, int bid);
 }

@@ -100,14 +100,4 @@ public class UserServiceImpl implements UserService{
         return userMapper.getUserByLikeName(likeName, role);
     }
 
-    @Override
-    public boolean setRole(String role, int uid) {
-        try {
-            userMapper.setRole(role, uid);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return false;
-    }
 }

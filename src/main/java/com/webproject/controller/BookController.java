@@ -41,7 +41,7 @@ public class BookController {
     public Result updateStatus(String status,int bid){
         return bookService.updateBookStatus(status, bid);
     }
-    @GetMapping("/book/last-four")
+    @GetMapping("/book/get/last-four")
     public Result lastFourBook(){
         List<Book> list = bookService.getLastFourBook();
         return Result.success(list);

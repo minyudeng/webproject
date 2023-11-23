@@ -1,5 +1,8 @@
 package com.webproject.service;
 
-public interface CommentService {
+import com.webproject.vo.CommentVo;
 
+
+public interface CommentService {
+    CommentVo.FirstCmt getFirstCmt(int bid);
 }
