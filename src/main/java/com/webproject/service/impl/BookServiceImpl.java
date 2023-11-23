@@ -157,8 +157,8 @@ public class BookServiceImpl implements BookService {
         }
         String updateTime = formatTo(book.getUpdatedAt(),"yyyy-MM-dd HH:mm:ss");
 
-        BookVo.BookDetail bookDetail = new BookVo.BookDetail(bid, book.getBname(),author.getAname() ,
-                book.getCover() , book.getIntro(), updateTime,types,bookMapper.getBookCollection(bid));
+        BookVo.BookDetail bookDetail = new BookVo.BookDetail(book.getBname(),author.getAname(),book.getCover(),
+                book.getIntro(),updateTime,types,bookMapper.getBookCollection(bid),book.getStatus());
         return bookDetail;
     }
 

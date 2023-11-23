@@ -16,9 +16,9 @@ public class BookVo {
         private String updateTime;
         private List<Type> typeList;
         private int numOfCollection;
+        private String status;
 
-        public BookDetail(int bid, String bname, String aname, String cover, String intro, String updateTime, List<Type> typeList, int numOfCollection) {
-            this.bid = bid;
+        public BookDetail(String bname, String aname, String cover, String intro, String updateTime, List<Type> typeList, int numOfCollection, String status) {
             this.bname = bname;
             this.aname = aname;
             this.cover = cover;
@@ -26,6 +26,7 @@ public class BookVo {
             this.updateTime = updateTime;
             this.typeList = typeList;
             this.numOfCollection = numOfCollection;
+            this.status = status;
         }
     }
 }
