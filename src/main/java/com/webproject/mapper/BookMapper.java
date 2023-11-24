@@ -33,6 +33,8 @@ public interface BookMapper {
             "set status = #{status} " +
             "where bid = #{bid}")
     void updateBookStatus(String status,int bid);
+    @Update("UPDATE book set rating = #{rating} WHERE bid = #{bid}")
+    void updateRating(double rating,int bid);
     //获得aid的所有作品
     @Select("select * from book where aid = #{aid}")
     List<Book>  getBooksByAid(int aid);
