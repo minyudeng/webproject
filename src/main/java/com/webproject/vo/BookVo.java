@@ -19,6 +19,6 @@ public class BookVo {
         private List<Type> typeList;
         private int numOfCollection;
         private String status;
-
+        private double rating;
     }
 }

@@ -166,6 +166,7 @@ public class BookServiceImpl implements BookService {
                 .typeList(types)
                 .numOfCollection(bookMapper.getBookCollection(bid))
                 .status(book.getStatus())
+                .rating(book.getRating())
                 .build();
         return bookDetail;
     }
