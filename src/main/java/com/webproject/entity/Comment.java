@@ -11,10 +11,15 @@ public class Comment {
     private int uid;
     private int bid;
     private String content;
+    private int like;
     private double rating;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @TableField(exist = false)
     private String time;
+    @TableField(exist = false)
+    private String avatar;
+    @TableField(exist = false)
+    private String username;
 }
 

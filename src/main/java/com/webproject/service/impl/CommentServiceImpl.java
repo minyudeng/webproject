@@ -1,10 +1,13 @@
 package com.webproject.service.impl;
 
 import com.webproject.entity.Comment;
+import com.webproject.entity.User;
 import com.webproject.mapper.BookMapper;
 import com.webproject.mapper.CommentMapper;
+import com.webproject.mapper.UserMapper;
 import com.webproject.service.BookService;
 import com.webproject.service.CommentService;
+import com.webproject.service.UserService;
 import com.webproject.utils.Result;
 import com.webproject.vo.CommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +25,18 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
     @Autowired
     private BookMapper bookMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public CommentVo.Cmt getFirstCmt(int bid) {
         List<Comment> comments = commentMapper.getAllCommentByBid(bid);
         for (Comment comment : comments){
             comment.setTime(formatTo(comment.getCreatedAt(),"yyyy-MM-dd HH:mm:ss"));
+
+            User user = userMapper.selectByUid(comment.getUid());
+            comment.setAvatar(user.getAvatar());
+            comment.setUsername(user.getUsername());
         }
 
         CommentVo.Cmt firstCmt = new CommentVo.Cmt(comments,comments.size());
