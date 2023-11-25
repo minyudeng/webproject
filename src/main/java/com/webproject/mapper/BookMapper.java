@@ -6,24 +6,16 @@ import com.webproject.entity.Type;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BookMapper {
     //根据书名获得单个书籍,用于去重
-    @Select("select * from book where bname = #{bname}")
     Book getOneBookByName(String bname);
-    @Select("select * from book where bid = #{bid}")
     Book getOneBookByBid(int bid);
-
+    List<Book> orderBooksByRate(String order,Integer limit);
     //增加书籍
-    @Insert("insert into book(bname,aid,intro,cover,status) " +
-            "values(#{bname}, #{aid}, #{intro}, #{cover}, #{status})")
     void addBook(String bname, int aid, String intro, String cover, String status);
-
-    @Update("update book " +
-            "set bname = #{bname}, " +
-            "intro = #{intro} " +
-            "where bid = #{bid}")
     void updateBook(String bname,String intro,int bid);
     @Update("update book " +
             "set cover = #{cover} " +
@@ -33,13 +25,10 @@ public interface BookMapper {
             "set status = #{status} " +
             "where bid = #{bid}")
     void updateBookStatus(String status,int bid);
-    @Update("UPDATE book set rating = #{rating} WHERE bid = #{bid}")
     void updateRating(double rating,int bid);
     //获得aid的所有作品
-    @Select("select * from book where aid = #{aid}")
     List<Book>  getBooksByAid(int aid);
     //获取最后四条
-    @Select("SELECT bid,bname,intro FROM book ORDER BY bid DESC LIMIT 4")
     List<Book> getLastFour();
 
 
@@ -55,6 +44,16 @@ public interface BookMapper {
     List<Integer> getBidByUid(int uid);
     @Select("select uid from collection where bid = #{bid}")
     List<Integer> getUidByBid(int bid);
+    @Select({"<script>",
+            "SELECT bid, COUNT(bid) AS collection_count",
+            "FROM collection",
+            "GROUP BY bid",
+            "ORDER BY collection_count #{order}",
+            "<if test='limit != null and limit > 0'>",
+            "LIMIT #{limit}",
+            "</if>",
+            "</script>"})
+    List<Map<String,Integer>> orderBooksByCollection(String order, Integer limit);
     //type
     //获得固定类型
     @Select("select * from type where type_id = #{typeId}")

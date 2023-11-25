@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import jakarta.persistence.Column;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
 public class Comment {
@@ -12,7 +14,7 @@ public class Comment {
     private int bid;
     private String content;
     private int like;
-    private double rating;
+    private Double rating;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @TableField(exist = false)

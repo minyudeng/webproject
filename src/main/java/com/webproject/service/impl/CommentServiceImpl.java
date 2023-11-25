@@ -56,7 +56,7 @@ public class CommentServiceImpl implements CommentService {
     }
     @Transactional
     public boolean updateRating(int bid){
-        List<Comment> comments = commentMapper.getAllCmt();
+        List<Comment> comments = commentMapper.getAllCommentByBid(bid);
         System.out.println("comments="+ comments);
         List<Double> list = comments.stream()
                 .map(Comment::getRating)

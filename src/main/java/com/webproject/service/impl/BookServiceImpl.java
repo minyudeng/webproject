@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static com.webproject.utils.DateFormatUtil.formatTo;
 
@@ -121,6 +119,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookByBid(int bid) {
         return bookMapper.getOneBookByBid(bid);
+    }
+
+    @Override
+    public List<Map<String,Integer>> orderBookByRate(String order, Integer limit) {
+        List<Map<String,Integer>> list;
+
+
+        return null;
+    }
+
+    @Override
+    public List<Map<String,Integer>> orderBookByCollection(String order, Integer limit) {
+        List<Map<String,Integer>> list = bookMapper.orderBooksByCollection(order,limit);
+        return list;
     }
 
     @Override

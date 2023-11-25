@@ -7,6 +7,7 @@ import com.webproject.utils.Result;
 import com.webproject.vo.BookVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BookService {
     Result addBook(BookDto.AddBook book);
@@ -15,6 +16,8 @@ public interface BookService {
     List<BookDto.BooksForAuthor> getBookByAid(int aid);
     List<Type> getAllType();
     Book getBookByBid(int bid);
+    List<Map<String,Integer>> orderBookByRate(String order, Integer limit);
+    List<Map<String,Integer>> orderBookByCollection(String order, Integer limit);
     Result updateBookCover(String cover,int bid);
     Result updateBookStatus(String status,int bid);
     List<Book> getLastFourBook();

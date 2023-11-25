@@ -46,6 +46,16 @@ public class BookController {
         List<Book> list = bookService.getLastFourBook();
         return Result.success(list);
     }
+    @GetMapping("/book/get/order")
+    public Result bookOrder(@RequestParam String order,@RequestParam int limit,@RequestParam String param){
+        if (param.equals("rate")){
+            return Result.success(bookService.orderBookByRate(order,limit));
+        }
+        if (param == "collection"){
+            return Result.success(bookService.orderBookByCollection(order,limit));
+        }
+        return Result.error("没有该param");
+    }
     @GetMapping("/book/{bid}")
     public Result getBookDetail(@PathVariable int bid){
         BookVo.BookDetail bookDetail = bookService.getBookDetail(bid);

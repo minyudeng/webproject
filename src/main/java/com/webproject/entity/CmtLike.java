@@ -8,5 +8,4 @@ import lombok.Data;
 public class CmtLike {
     private int cid;
     private int uid;
-    private int bid;
 }
