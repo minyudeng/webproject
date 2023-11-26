@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/update")
+    @PostMapping("/user/update")
     public Result update(@RequestBody User user){
         Result result;
         try {
@@ -25,7 +25,7 @@ public class UserController {
         return result;
     }
 
-    @GetMapping("/getByLikeName")
+    @GetMapping("/user/get")
     public Result getByLikeName(@RequestParam String likename,@RequestParam String role){
         System.out.println("查询:" +likename+"  "+ role);
         List<User> userList;
@@ -39,7 +39,7 @@ public class UserController {
         return Result.success(userList);
     }
 
-    @PostMapping("/updaterole")
+    @PostMapping("/user/update/role")
     public Result updateRole(@RequestBody Map<String, String> requestBody){
         Result result;
         User user = userService.selectByusername(requestBody.get("username"));

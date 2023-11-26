@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webproject.mapper.SubcmtMapper">
+    <insert id="insertSubcmt">
+        insert into subcmt(cid, uid, content, `like`)
+        values (#{cid},#{uid},#{content},0)
+    </insert>
+    <insert id="addSubcmtLike">
+        insert into subcmt_like(subcmt_id, uid)
+        VALUES(#{subcmtId}, #{uid})
+    </insert>
+    <update id="updateSubcmtLike">
+        update subcmt
+        set `like` = `like` + 1
+        where subcmt_id = #{subcmtId}
+    </update>
+    <update id="reduceSubCmtLike">
+        update subcmt
+        set `like` = `like` - 1
+        where subcmt_id = #{subcmtId}
+    </update>
+    <delete id="delSubCmtLike">
+        delete
+        from subcmt_like
+        where subcmt_id = #{subcmtId} and uid = #{uid}
+    </delete>
+
+
+    <select id="selectSubcmtByCId" resultType="com.webproject.entity.Subcmt">
+        select *
+        from subcmt
+        where cid = #{cid}
+    </select>
+    <select id="selectSubcmtNumByCId" resultType="java.lang.Integer">
+        select count(*)
+        from subcmt
+        where cid = #{cid}
+    </select>
+    <select id="selectSubmtLikeByCidAndUid" resultType="com.webproject.entity.SubcmtLike">
+        select *
+        from subcmt_like
+        where subcmt_id = #{subcmtId} and uid = #{uid}
+    </select>
+</mapper>

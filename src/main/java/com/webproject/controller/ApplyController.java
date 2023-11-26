@@ -14,19 +14,19 @@ public class ApplyController {
     @Autowired
     private ApplyService applyService;
 
-    @PostMapping("/addapply")
+    @PostMapping("/apply/add")
     public Result addApply(@RequestBody Map<String,String> map){
 
         Result result = applyService.addApply(Integer.valueOf(map.get("uid")), map.get("aname"), map.get("message"));
         return result;
     }
-    @GetMapping("/getApply")
+    @GetMapping("/apply/get")
     public Result getApply(@RequestParam String likename,@RequestParam(required = false,defaultValue = "") String audit){
         List<Map<String,Object>> list;
         list = applyService.getApply(likename, audit);
         return Result.success("查询成功",list);
     }
-    @PutMapping("/updateaudit")
+    @PutMapping("/apply/update/audit")
     public Result uodateAudit(@RequestBody Map<String,String> map){
         if (applyService.setAudit(Integer.parseInt(map.get("audit")),Integer.parseInt(map.get("uid")))){
             return Result.success();

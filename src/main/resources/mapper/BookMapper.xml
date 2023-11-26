@@ -7,6 +7,14 @@
         insert into book(bname,aid,intro,cover,status)
         values(#{bname}, #{aid}, #{intro}, #{cover}, #{status})
     </insert>
+    <insert id="addBookToType">
+        insert into book_type(bid, type_id)
+        values(#{bid}, #{typeId})
+    </insert>
+    <insert id="addCollection">
+        insert into collection(uid, bid)
+        values (#{uid}, #{bid})
+    </insert>
     <update id="updateRating">
         UPDATE book set rating = #{rating} WHERE bid = #{bid}
     </update>
@@ -16,6 +24,12 @@
             intro = #{intro}
         where bid = #{bid}
     </update>
+    <delete id="delBookToType">
+        delete from book_type where bid = #{bid}
+    </delete>
+    <delete id="delCollection">
+        DELETE FROM collection WHERE bid = #{bid} AND uid = #{uid}
+    </delete>
 
     <select id="getLastFour" resultType="com.webproject.entity.Book">
         SELECT bid,bname,intro
@@ -38,6 +52,21 @@
         <if test='limit != null and limit > 0'>
             LIMIT #{limit}
         </if>
+    </select>
+    <select id="getBookTypeId" resultType="java.lang.Integer">
+        select type_id from book_type where bid = #{bid}
+    </select>
+    <select id="getAllType" resultType="com.webproject.entity.Type">
+        select * from type
+    </select>
+    <select id="getTypeByTypeId" resultType="com.webproject.entity.Type">
+        select * from type where type_id = #{typeId}
+    </select>
+    <select id="getBookCollectionNum" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM collection WHERE bid = #{bid}
+    </select>
+    <select id="getBidByUid" resultType="java.lang.Integer">
+        select bid from collection where uid = #{uid}
     </select>
 
 </mapper>

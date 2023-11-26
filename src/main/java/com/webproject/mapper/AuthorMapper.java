@@ -14,7 +14,6 @@ public interface AuthorMapper {
 
     @Select("select * from author where aid = #{aid}")
     Author selectByAid(int aid);
-    @Insert("insert into author(uid, aname) values(#{uid}, #{aname})")
     void addAuthor(int uid, String aname);
     @Select("select * from author where uid = #{uid}")
     Author selectByUid(int uid);

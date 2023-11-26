@@ -16,8 +16,6 @@ public interface BookService {
     List<BookDto.BooksForAuthor> getBookByAid(int aid);
     List<Type> getAllType();
     Book getBookByBid(int bid);
-    List<Map<String,Integer>> orderBookByRate(String order, Integer limit);
-    List<Map<String,Integer>> orderBookByCollection(String order, Integer limit);
     Result updateBookCover(String cover,int bid);
     Result updateBookStatus(String status,int bid);
     List<Book> getLastFourBook();

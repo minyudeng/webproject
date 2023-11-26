@@ -104,7 +104,7 @@ public class BookServiceImpl implements BookService {
             //将时间格式化
             String formattedDateTime = formatTo(book.getUpdatedAt(), "yyyy-MM-dd HH:mm:ss");
             //获得收藏数
-            int numOfCellection = bookMapper.getBookCollection(book.getBid());
+            int numOfCellection = bookMapper.getBookCollectionNum(book.getBid());
             BookDto.BooksForAuthor myBook = new BookDto.BooksForAuthor(uid, book.getBid(),
                     book.getBname(), author.getAid(), book.getIntro(), book.getCover(), book.getStatus(), formattedDateTime, types, numOfCellection);
             list.add(myBook);
@@ -121,19 +121,6 @@ public class BookServiceImpl implements BookService {
         return bookMapper.getOneBookByBid(bid);
     }
 
-    @Override
-    public List<Map<String,Integer>> orderBookByRate(String order, Integer limit) {
-        List<Map<String,Integer>> list;
-
-
-        return null;
-    }
-
-    @Override
-    public List<Map<String,Integer>> orderBookByCollection(String order, Integer limit) {
-        List<Map<String,Integer>> list = bookMapper.orderBooksByCollection(order,limit);
-        return list;
-    }
 
     @Override
     public Result updateBookCover(String cover, int bid) {
@@ -176,7 +163,7 @@ public class BookServiceImpl implements BookService {
                 .intro(book.getIntro())
                 .updateTime(updateTime)
                 .typeList(types)
-                .numOfCollection(bookMapper.getBookCollection(bid))
+                .numOfCollection(bookMapper.getBookCollectionNum(bid))
                 .status(book.getStatus())
                 .rating(book.getRating())
                 .build();

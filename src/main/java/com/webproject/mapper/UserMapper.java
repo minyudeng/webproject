@@ -10,17 +10,12 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-
-    @Select("select * from user")
-    List<User> selectAll();
-
     @Insert("insert into user(username,password,nickname,email,role)" +
             "values(#{username},#{password},#{nickname},#{email},#{role})")
     void insert(User user);
 
-    @Select("select * from user where username = #{username}")
     User selectByUsername(String username);
-    @Select("select * from user where uid = #{uid}")
+
     User selectByUid(int uid);
 
     @Update("UPDATE user " +
@@ -40,4 +35,8 @@ public interface UserMapper {
 
     @Update("update user set role = #{role} where uid = #{uid}")
     void setRole(String role, int uid);
+
+
+    //阅读历史
+    void insertReadHistory(int bid, int uid);
 }
