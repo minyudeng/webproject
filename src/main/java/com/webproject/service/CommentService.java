@@ -6,6 +6,6 @@ import com.webproject.vo.CommentVo;
 
 
 public interface CommentService {
-    CommentVo.Cmt getFirstCmt(int bid);
+    CommentVo.Cmt getCmts(int bid,int likeUid);
     Result addCmt(Comment comment);
 }

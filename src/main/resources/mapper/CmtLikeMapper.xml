@@ -7,15 +7,16 @@
         insert into cmt_like(uid,cid)
         VALUES(#{uid}, #{cid})
     </insert>
-    <delete id="delByCid">
+    <delete id="delCmtLikeByCid">
         delete
         from cmt_like
-        where cid = #{cid}
+        where cid = #{cid} and uid = #{uid}
     </delete>
-    <select id="selectByCid" resultType="com.webproject.entity.CmtLike">
+    <select id="selectCmtLikeByCidAndUid" resultType="com.webproject.entity.CmtLike">
         select *
         from cmt_like
         where cid = #{cid} and uid = #{uid}
     </select>
+
 </mapper>
 

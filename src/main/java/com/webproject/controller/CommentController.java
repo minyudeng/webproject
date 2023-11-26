@@ -11,8 +11,8 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
     @GetMapping("/comment/get/{bid}")
-    public Result getComment(@PathVariable int bid){
-        return Result.success(commentService.getFirstCmt(bid));
+    public Result getComment(@PathVariable int bid,@RequestParam int likeUid){
+        return Result.success(commentService.getCmts(bid,likeUid));
     }
     @PostMapping("/comment/add")
     public Result addBookComment(Comment comment){

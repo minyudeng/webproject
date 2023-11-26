@@ -2,9 +2,7 @@ package com.webproject.service.impl;
 
 import com.webproject.entity.Comment;
 import com.webproject.entity.User;
-import com.webproject.mapper.BookMapper;
-import com.webproject.mapper.CommentMapper;
-import com.webproject.mapper.UserMapper;
+import com.webproject.mapper.*;
 import com.webproject.service.BookService;
 import com.webproject.service.CommentService;
 import com.webproject.service.UserService;
@@ -27,9 +25,13 @@ public class CommentServiceImpl implements CommentService {
     private BookMapper bookMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private SubcmtMapper subcmtMapper;
+    @Autowired
+    private CmtLikeMapper cmtLikeMapper;
 
     @Override
-    public CommentVo.Cmt getFirstCmt(int bid) {
+    public CommentVo.Cmt getCmts(int bid,int likeUid) {
         List<Comment> comments = commentMapper.getAllCommentByBid(bid);
         for (Comment comment : comments){
             comment.setTime(formatTo(comment.getCreatedAt(),"yyyy-MM-dd HH:mm:ss"));
@@ -37,6 +39,12 @@ public class CommentServiceImpl implements CommentService {
             User user = userMapper.selectByUid(comment.getUid());
             comment.setAvatar(user.getAvatar());
             comment.setUsername(user.getUsername());
+            comment.setSubNum(subcmtMapper.selectSubcmtNumByCId(comment.getCid()));
+            if (cmtLikeMapper.selectCmtLikeByCidAndUid(comment.getCid(),likeUid) == null){
+                comment.setLiked(false);
+            }else {
+                comment.setLiked(true);
+            }
         }
 
         CommentVo.Cmt firstCmt = new CommentVo.Cmt(comments,comments.size());

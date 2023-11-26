@@ -16,7 +16,7 @@ public class CmtLikeServiceImpl implements CmtLikeService {
     @Autowired
     private CommentMapper commentMapper;
     public boolean isLikeExist(int cid, int uid){
-        if (cmtLikeMapper.selectByCid(cid, uid) == null){
+        if (cmtLikeMapper.selectCmtLikeByCidAndUid(cid, uid) == null){
             return false;
         }
         return true;
@@ -26,7 +26,7 @@ public class CmtLikeServiceImpl implements CmtLikeService {
     public Result likeCmt(int cid, int uid) {
         if (isLikeExist(cid,uid)){
             try {
-                cmtLikeMapper.delByCid(cid);
+                cmtLikeMapper.delCmtLikeByCid(cid,uid);
                 commentMapper.reduceCmtLike(cid);
             }catch (Exception e){
                 throw new RuntimeException("取消点赞失败");
@@ -42,9 +42,4 @@ public class CmtLikeServiceImpl implements CmtLikeService {
         return Result.successMsg("点赞成功");
     }
 
-    @Override
-    public Integer getLikeNum(int cid) {
-//        return cmtLikeMapper.selectLikeNumber(cid);
-        return null;
-    }
 }

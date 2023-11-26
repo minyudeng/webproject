@@ -23,5 +23,9 @@ public class Comment {
     private String avatar;
     @TableField(exist = false)
     private String username;
+    @TableField(exist = false)
+    private int subNum;
+    @TableField(exist = false)
+    private boolean liked;
 }
 
