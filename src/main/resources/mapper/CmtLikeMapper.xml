@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webproject.mapper.CmtLikeMapper">
+    <insert id="addCmtLike">
+        insert into cmt_like(uid,cid)
+        VALUES(#{uid}, #{cid})
+    </insert>
+    <delete id="delByCid">
+        delete
+        from cmt_like
+        where cid = #{cid}
+    </delete>
+    <select id="selectByCid" resultType="com.webproject.entity.CmtLike">
+        select *
+        from cmt_like
+        where cid = #{cid} and uid = #{uid}
+    </select>
+</mapper>
+

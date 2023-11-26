@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webproject.mapper.BookMapper">
+    <insert id="addBook">
+        insert into book(bname,aid,intro,cover,status)
+        values(#{bname}, #{aid}, #{intro}, #{cover}, #{status})
+    </insert>
+    <update id="updateRating">
+        UPDATE book set rating = #{rating} WHERE bid = #{bid}
+    </update>
+    <update id="updateBook">
+        update book
+        set bname = #{bname},
+            intro = #{intro}
+        where bid = #{bid}
+    </update>
+
+    <select id="getLastFour" resultType="com.webproject.entity.Book">
+        SELECT bid,bname,intro
+        FROM book
+        ORDER BY bid DESC LIMIT 4
+    </select>
+    <select id="getBooksByAid" resultType="com.webproject.entity.Book">
+        select * from book where aid = #{aid}
+    </select>
+    <select id="getOneBookByName" resultType="com.webproject.entity.Book">
+        select * from book where bname = #{bname}
+    </select>
+    <select id="getOneBookByBid" resultType="com.webproject.entity.Book">
+        select * from book where bid = #{bid}
+    </select>
+    <select id="orderBooksByRate" resultType="com.webproject.entity.Book">
+        SELECT bid, rating
+        FROM book
+        ORDER BY rating ${order}
+        <if test='limit != null and limit > 0'>
+            LIMIT #{limit}
+        </if>
+    </select>
+
+</mapper>
+
