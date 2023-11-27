@@ -1,5 +1,6 @@
 package com.webproject.service;
 
+import com.github.pagehelper.Page;
 import com.webproject.dto.BookDto;
 import com.webproject.entity.Book;
 import com.webproject.entity.Type;
@@ -18,7 +19,7 @@ public interface BookService {
     Book getBookByBid(int bid);
     Result updateBookCover(String cover,int bid);
     Result updateBookStatus(String status,int bid);
-    List<Book> getLastFourBook();
+    Result getBooks(int pageNum, int pageSize, String orderBy, String bname);
     BookVo.BookDetail getBookDetail(int bid);
     Result collectionBook(int bid,int uid);
     boolean isCollection(int uid, int bid);

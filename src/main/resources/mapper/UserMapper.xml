@@ -15,4 +15,10 @@
     <select id="selectByUid" resultType="com.webproject.entity.User">
         select * from user where uid = #{uid}
     </select>
+    <select id="getUserByLikeNameAndRole" resultType="com.webproject.entity.User">
+        select * from user where (username like CONCAT('%', #{likename}, '%') or
+                nickname like CONCAT('%', #{likename}, '%') or
+                email like concat('%', #{likename}, '%')) and
+                role like concat('%', #{role}, '%')
+    </select>
 </mapper>

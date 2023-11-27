@@ -1,5 +1,8 @@
 package com.webproject.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.webproject.dto.BookDto;
 import com.webproject.entity.Author;
 import com.webproject.entity.Book;
@@ -140,8 +143,18 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getLastFourBook() {
-        return bookMapper.getLastFour();
+    public Result getBooks(int pageNum, int pageSize, String orderBy, String bname) {
+        PageHelper.startPage(pageNum,pageSize,orderBy);
+        List<Book> books = bookMapper.getBooks(bname);
+
+        List<BookVo.BookDetail> list = new ArrayList<>();
+        books.forEach(book -> {
+            BookVo.BookDetail bookDetail = getBookDetail(book.getBid());
+            list.add(bookDetail);
+                    });
+
+        PageInfo<BookVo.BookDetail> pageInfo = new PageInfo<>(list);
+        return Result.success(pageInfo);
     }
 
     @Override

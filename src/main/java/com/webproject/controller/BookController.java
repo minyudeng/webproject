@@ -27,24 +27,21 @@ public class BookController {
         System.out.println(books.toString());
         return Result.success(books);
     }
-    @GetMapping("/book/typelist")
-    public Result getAllType(){
-        List<Type> typeList = bookService.getAllType();
-        return Result.success(typeList);
-    }
     @PutMapping ("/book/update")
     public Result update(BookDto.UpdateBookDto bookDto){
         Result result = bookService.updateBook(bookDto);
         return result;
     }
-    @PutMapping("/book/updatestatus")
+    @PutMapping("/book/update/status")
     public Result updateStatus(String status,int bid){
         return bookService.updateBookStatus(status, bid);
     }
-    @GetMapping("/book/get/last-four")
-    public Result lastFourBook(){
-        List<Book> list = bookService.getLastFourBook();
-        return Result.success(list);
+    @GetMapping("/book/get")
+    public Result getBooks(@RequestParam(required = false, defaultValue = "1") int pageNum,
+                           @RequestParam(required = false, defaultValue = "0") int pageSize,
+                           @RequestParam(required = false, defaultValue = "bid asc") String orderBy,
+                           @RequestParam(required = false,defaultValue = "") String bname){
+        return bookService.getBooks(pageNum,pageSize,orderBy,bname);
     }
 
     @GetMapping("/book/{bid}")
@@ -60,5 +57,10 @@ public class BookController {
     public Result isCollection(@RequestParam int bid,@RequestParam int uid){
         boolean bool = bookService.isCollection(uid,bid);
         return Result.success(bool);
+    }
+    @GetMapping("/type/get")
+    public Result getAllType(){
+        List<Type> typeList = bookService.getAllType();
+        return Result.success(typeList);
     }
 }

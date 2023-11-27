@@ -1,5 +1,6 @@
 package com.webproject.mapper;
 
+import com.github.pagehelper.Page;
 import com.webproject.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,13 +11,16 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Insert("insert into user(username,password,nickname,email,role)" +
-            "values(#{username},#{password},#{nickname},#{email},#{role})")
-    void insert(User user);
+
+    List<User> getUserByLikeNameAndRole(String likename,String role);
 
     User selectByUsername(String username);
 
     User selectByUid(int uid);
+
+    @Insert("insert into user(username,password,nickname,email,role)" +
+            "values(#{username},#{password},#{nickname},#{email},#{role})")
+    void insert(User user);
 
     @Update("UPDATE user " +
             "SET password = #{password}, " +
@@ -27,11 +31,7 @@ public interface UserMapper {
             "role = #{role} " +
             "WHERE username = #{username};")
     void update(User user);
-    @Select("select * from user where (username like CONCAT('%', #{likename}, '%') or " +
-            "nickname like CONCAT('%', #{likename}, '%') or " +
-            "email like concat('%', #{likename}, '%')) and " +
-            "role like concat('%', #{role}, '%')")
-    List<User> getUserByLikeName(String likename,String role);
+
 
     @Update("update user set role = #{role} where uid = #{uid}")
     void setRole(String role, int uid);
@@ -39,4 +39,5 @@ public interface UserMapper {
 
     //阅读历史
     void insertReadHistory(int bid, int uid);
+
 }

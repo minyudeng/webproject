@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface BookMapper extends BaseMapper<Book> {
+public interface BookMapper {
     //insert
     //增加书籍
     void addBook(String bname, int aid, String intro, String cover, String status);
@@ -31,11 +31,9 @@ public interface BookMapper extends BaseMapper<Book> {
     Book getOneBookByName(String bname);
     Book getOneBookByBid(int bid);
     List<Book> orderBooksByRate(String order,Integer limit);
+    List<Book> getBooks(String bname);
     //获得aid的所有作品
     List<Book>  getBooksByAid(int aid);
-    //获取最后四条
-    List<Book> getLastFour();
-
 
     //collection
     // 获得书的收藏数目

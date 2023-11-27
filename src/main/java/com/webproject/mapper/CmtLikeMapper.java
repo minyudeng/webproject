@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface CmtLikeMapper extends BaseMapper<CmtLike> {
+public interface CmtLikeMapper {
     //cmt
     void addCmtLike(int cid,int uid);
     void delCmtLikeByCid(int cid,int uid);

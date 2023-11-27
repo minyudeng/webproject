@@ -1,4 +1,6 @@
 package com.webproject.service.impl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.webproject.entity.User;
 import com.webproject.mapper.UserMapper;
 import com.webproject.service.UserService;
@@ -33,6 +35,16 @@ public class UserServiceImpl implements UserService{
         }
         return Result.success("插入成功",user);
     }
+
+    @Override
+    public Result getAllUsers(int pageNum, int pageSize, String orderBy,String likeName,String role) {
+        PageHelper.startPage(pageNum, pageSize);
+        PageHelper.orderBy(orderBy);
+        List<User> list = userMapper.getUserByLikeNameAndRole(likeName,role);
+        PageInfo<User> pageInfo = new PageInfo<>(list);
+        return Result.success(pageInfo);
+    }
+
     @Override
     public User selectByusername(String username) {
         return userMapper.selectByUsername(username);
@@ -96,8 +108,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getByLikeName(String likeName, String role) {
-        return userMapper.getUserByLikeName(likeName, role);
+    public void addReadHistory(int bid, int uid) {
+        userMapper.insertReadHistory(bid,uid);
     }
 
 }
