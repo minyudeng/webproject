@@ -63,8 +63,15 @@
     <select id="getBidByUid" resultType="java.lang.Integer">
         select bid from collection where uid = #{uid}
     </select>
-    <select id="getBooks" resultType="com.webproject.entity.Book">
-        select * from book
+
+    <select id="getCollectionNumOrder" resultType="java.lang.Integer">
+        SELECT bid, COUNT(bid) AS bidCount
+        FROM collection
+        GROUP BY bid
+        ORDER BY bidCount DESC
+    </select>
+    <select id="getBooks" resultType="java.lang.Integer">
+        select bid from book
         <where>
             <if test=" bname != null and bname != '' ">
                 AND bname LIKE CONCAT('%', #{bname}, '%')

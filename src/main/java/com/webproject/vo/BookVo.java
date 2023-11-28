@@ -20,5 +20,13 @@ public class BookVo {
         private int numOfCollection;
         private String status;
         private double rating;
+        private boolean isCollection;
+    }
+    @Builder
+    @Data
+    public static class BookSimpleShow{
+        private int bid;
+        private String bname;
+        private String cover;
     }
 }

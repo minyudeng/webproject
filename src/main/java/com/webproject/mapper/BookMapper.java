@@ -31,13 +31,14 @@ public interface BookMapper {
     Book getOneBookByName(String bname);
     Book getOneBookByBid(int bid);
     List<Book> orderBooksByRate(String order,Integer limit);
-    List<Book> getBooks(String bname);
+    List<Integer> getBooks(String bname);
     //获得aid的所有作品
     List<Book>  getBooksByAid(int aid);
 
     //collection
     // 获得书的收藏数目
     Integer getBookCollectionNum(int bid);
+    List<Integer> getCollectionNumOrder();
     //添加收藏
     void addCollection(int uid, int bid);
     //删除收藏

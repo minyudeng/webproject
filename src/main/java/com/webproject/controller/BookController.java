@@ -40,23 +40,20 @@ public class BookController {
     public Result getBooks(@RequestParam(required = false, defaultValue = "1") int pageNum,
                            @RequestParam(required = false, defaultValue = "0") int pageSize,
                            @RequestParam(required = false, defaultValue = "bid asc") String orderBy,
-                           @RequestParam(required = false,defaultValue = "") String bname){
-        return bookService.getBooks(pageNum,pageSize,orderBy,bname);
+                           @RequestParam(required = false,defaultValue = "") String bname,
+                           @RequestParam(required = false,defaultValue = "-1") int uid){
+        return bookService.getBooks(pageNum,pageSize,orderBy,bname,uid);
     }
 
     @GetMapping("/book/{bid}")
-    public Result getBookDetail(@PathVariable int bid){
-        BookVo.BookDetail bookDetail = bookService.getBookDetail(bid);
+    public Result getBookDetail(@PathVariable int bid,
+                                @RequestParam(required = false,defaultValue = "-1")int uid){
+        BookVo.BookDetail bookDetail = bookService.getBookDetail(bid,uid);
         return Result.success(bookDetail);
     }
     @PutMapping("/book/collection")
     public Result collection(@RequestParam int bid,@RequestParam int uid){
         return bookService.collectionBook(bid,uid);
-    }
-    @GetMapping("/book/is-collection")
-    public Result isCollection(@RequestParam int bid,@RequestParam int uid){
-        boolean bool = bookService.isCollection(uid,bid);
-        return Result.success(bool);
     }
     @GetMapping("/type/get")
     public Result getAllType(){

@@ -1,6 +1,5 @@
 package com.webproject.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.webproject.dto.BookDto;
@@ -143,22 +142,31 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Result getBooks(int pageNum, int pageSize, String orderBy, String bname) {
-        PageHelper.startPage(pageNum,pageSize,orderBy);
-        List<Book> books = bookMapper.getBooks(bname);
-
+    public Result getBooks(int pageNum, int pageSize, String orderBy, String bname, int uid) {
         List<BookVo.BookDetail> list = new ArrayList<>();
-        books.forEach(book -> {
-            BookVo.BookDetail bookDetail = getBookDetail(book.getBid());
-            list.add(bookDetail);
-                    });
+        List<Integer> ids;
+        PageInfo pageInfo;
 
-        PageInfo<BookVo.BookDetail> pageInfo = new PageInfo<>(list);
+        if (orderBy.contains("collection")){
+            PageHelper.startPage(pageNum, pageSize);
+            ids = bookMapper.getCollectionNumOrder();
+            pageInfo = new PageInfo<>(ids);
+        }else {
+            PageHelper.startPage(pageNum, pageSize, orderBy);
+            ids  = bookMapper.getBooks(bname);
+            pageInfo = new PageInfo<>(ids);
+        }
+        ids.forEach(i -> {
+            BookVo.BookDetail bookDetail = getBookDetail(i,uid);
+            list.add(bookDetail);
+        });
+        pageInfo.setList(list);
+        System.out.println("pageInfo="+list);
         return Result.success(pageInfo);
     }
 
     @Override
-    public BookVo.BookDetail getBookDetail(int bid) {
+    public BookVo.BookDetail getBookDetail(int bid,int uid) {
         Book book = bookMapper.getOneBookByBid(bid);
         Author author = authorMapper.selectByAid(book.getAid());
         List<Integer> typeIds = bookMapper.getBookTypeId(bid);
@@ -170,6 +178,7 @@ public class BookServiceImpl implements BookService {
         String updateTime = formatTo(book.getUpdatedAt(),"yyyy-MM-dd HH:mm:ss");
 
         BookVo.BookDetail bookDetail = BookVo.BookDetail.builder()
+                .bid(book.getBid())
                 .bname(book.getBname())
                 .aname(author.getAname())
                 .cover(book.getCover())
@@ -179,6 +188,7 @@ public class BookServiceImpl implements BookService {
                 .numOfCollection(bookMapper.getBookCollectionNum(bid))
                 .status(book.getStatus())
                 .rating(book.getRating())
+                .isCollection(isCollection(uid, book.getBid()))
                 .build();
         return bookDetail;
     }
@@ -195,6 +205,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean isCollection(int uid, int bid) {
+        if (bid == -1){
+            return false;
+        }
         List<Integer> books = bookMapper.getBidByUid(uid);
         for (int i : books){
             if (i == bid){
