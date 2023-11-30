@@ -14,6 +14,7 @@ public class Book {
     private String intro;
     private String cover;
     private double rating;
+    private int numOfCollection;
     private String status;
 //    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     @Column(name = "created_at")

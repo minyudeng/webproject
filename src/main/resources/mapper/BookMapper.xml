@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.webproject.mapper.BookMapper">
     <insert id="addBook">
-        insert into book(bname,aid,intro,cover,status)
-        values(#{bname}, #{aid}, #{intro}, #{cover}, #{status})
+        insert into book(bname,aid,intro,cover,status,numOfCollection)
+        values(#{bname}, #{aid}, #{intro}, #{cover}, #{status},0)
     </insert>
     <insert id="addBookToType">
         insert into book_type(bid, type_id)
@@ -22,6 +22,11 @@
         update book
         set bname = #{bname},
             intro = #{intro}
+        where bid = #{bid}
+    </update>
+    <update id="updateBookCollection">
+        update book
+        set numOfCollection = #{num}
         where bid = #{bid}
     </update>
     <delete id="delBookToType">
@@ -71,10 +76,20 @@
         ORDER BY bidCount DESC
     </select>
     <select id="getBooks" resultType="java.lang.Integer">
-        select bid from book
+        select b.bid from book b
+        <if test=" typeId != null and typeId != -1">
+            JOIN book_type bt ON b.bid = bt.bid
+            JOIN type t ON t.type_id = bt.type_id
+        </if>
         <where>
             <if test=" bname != null and bname != '' ">
-                AND bname LIKE CONCAT('%', #{bname}, '%')
+                AND b.bname LIKE CONCAT('%', #{bname}, '%')
+            </if>
+            <if test=" status != null and status != '' ">
+                AND b.status LIKE CONCAT('%', #{status}, '%')
+            </if>
+            <if test=" typeId != null and typeId != -1">
+                AND t.type_id = #{typeId}
             </if>
         </where>
     </select>

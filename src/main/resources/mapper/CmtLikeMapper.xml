@@ -15,7 +15,14 @@
     <select id="selectCmtLikeByCidAndUid" resultType="com.webproject.entity.CmtLike">
         select *
         from cmt_like
-        where cid = #{cid} and uid = #{uid}
+        <where>
+             <if test="cid != null and cid != -1">
+                 and cid = #{cid}
+             </if>
+            <if test="uid != null and uid != -1">
+                 and uid = #{uid}
+            </if>
+        </where>
     </select>
 
 </mapper>

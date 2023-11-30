@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface BookService {
     Result addBook(BookDto.AddBook book);
+    Result delBookByBid(int bid);
     Result updateBook(BookDto.UpdateBookDto updateBookDto);
     boolean isBookEmpty(String bname);
     List<BookDto.BooksForAuthor> getBookByAid(int aid);
@@ -17,7 +18,7 @@ public interface BookService {
     Book getBookByBid(int bid);
     Result updateBookCover(String cover,int bid);
     Result updateBookStatus(String status,int bid);
-    Result getBooks(int pageNum, int pageSize, String orderBy, String bname, int uid);
+    Result getBooks(int pageNum, int pageSize, String orderBy, String bname,String status,int typeId, int uid);
     BookVo.BookDetail getBookDetail(int bid,int uid);
     Result collectionBook(int bid,int uid);
     boolean isCollection(int uid, int bid);

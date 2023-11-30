@@ -1,13 +1,10 @@
 package com.webproject.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.webproject.entity.Book;
-import com.webproject.entity.Collection;
 import com.webproject.entity.Type;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface BookMapper {
@@ -26,12 +23,13 @@ public interface BookMapper {
             "where bid = #{bid}")
     void updateBookStatus(String status,int bid);
     void updateRating(double rating,int bid);
+    void updateBookCollection(int num, int bid);
     //select
     //根据书名获得单个书籍,用于去重
     Book getOneBookByName(String bname);
     Book getOneBookByBid(int bid);
     List<Book> orderBooksByRate(String order,Integer limit);
-    List<Integer> getBooks(String bname);
+    List<Integer> getBooks(String bname,String status,int typeId);
     //获得aid的所有作品
     List<Book>  getBooksByAid(int aid);
 

@@ -41,8 +41,10 @@ public class BookController {
                            @RequestParam(required = false, defaultValue = "0") int pageSize,
                            @RequestParam(required = false, defaultValue = "bid asc") String orderBy,
                            @RequestParam(required = false,defaultValue = "") String bname,
+                           @RequestParam(required = false,defaultValue = "") String status,
+                           @RequestParam(required = false,defaultValue = "-1") int typeId,
                            @RequestParam(required = false,defaultValue = "-1") int uid){
-        return bookService.getBooks(pageNum,pageSize,orderBy,bname,uid);
+        return bookService.getBooks(pageNum,pageSize,orderBy,bname,status,typeId,uid);
     }
 
     @GetMapping("/book/{bid}")

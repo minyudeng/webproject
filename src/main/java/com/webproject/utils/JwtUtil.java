@@ -42,8 +42,6 @@ public class JwtUtil {
     }
 
     private SecretKey encodeSecret(){
-//        byte[] encode = Base64.getEncoder().encode(key.getBytes());
-//        SecretKeySpec aes = new SecretKeySpec(encode, 0, encode.length, "AES");
         byte[] apiKeySecretBytes = JWT_KEY.getBytes();
         return new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
     }

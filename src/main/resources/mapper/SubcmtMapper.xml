@@ -24,7 +24,29 @@
     <delete id="delSubCmtLike">
         delete
         from subcmt_like
-        where subcmt_id = #{subcmtId} and uid = #{uid}
+        <where>
+            <if test="subcmtId != null and subcmtId != -1">
+                and subcmt_id = #{subcmtId}
+            </if>
+            <if test="uid != null and uid != -1">
+                and uid = #{uid}
+            </if>
+        </where>
+    </delete>
+    <delete id="delSubCmt">
+        delete
+        from subcmt
+        <where>
+            <if test="subcmtId != null and subcmtId != -1">
+                and subcmt_id = #{subcmtId}
+            </if>
+            <if test="cid != null and cid != -1">
+                and cid = #{cid}
+            </if>
+            <if test="uid != null and uid != -1">
+                and uid = #{uid}
+            </if>
+        </where>
     </delete>
 
 
@@ -41,6 +63,13 @@
     <select id="selectSubmtLikeByCidAndUid" resultType="com.webproject.entity.SubcmtLike">
         select *
         from subcmt_like
-        where subcmt_id = #{subcmtId} and uid = #{uid}
+        <where>
+            <if test="subcmtId != null and subcmtId != -1">
+                and subcmt_id = #{subcmtId}
+            </if>
+            <if test="uid != null and uid != -1">
+                and uid = #{uid}
+            </if>
+        </where>
     </select>
 </mapper>
