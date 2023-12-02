@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webproject.mapper.ShelfMapper">
+    <insert id="insertShelf">
+        insert into shelf(uid, shelf_name, intro, collection_num)
+        VALUES (#{uid},#{shelfName},#{intro},0)
+    </insert>
+    <insert id="insertBookShelf">
+        insert into book_shelf(shelf_id, bid) VALUES (#{shelfId},#{bid})
+    </insert>
+    <insert id="insertUserShelf">
+        insert into user_shelf(shelf_id, uid) VALUES (#{shelfId},#{bid})
+    </insert>
+    <update id="updateShelf">
+        update shelf
+        <set>
+            <if test="shelfName != null and shelfName !=''">
+                shelf_name = #{shelfName},
+            </if>
+            <if test="intro != null and intro !=''">
+                intro = #{intro},
+            </if>
+        </set>
+        where shelf_id = #{shelfId}
+    </update>
+    <delete id="delBookShelf">
+        delete from book_shelf
+        <where>
+            <if test="shelfId != null and shelfId != -1">
+                and shelf_id = #{shelfId}
+            </if>
+            <if test="bid != null and bid != -1">
+                and bid = #{bid}
+            </if>
+        </where>
+    </delete>
+    <delete id="delUserShelf">
+        delete from user_shelf
+        <where>
+            <if test="shelfId != null and shelfId != -1">
+                and shelf_id = #{shelfId}
+            </if>
+            <if test="uid != null and uid != -1">
+                and uid = #{uid}
+            </if>
+        </where>
+    </delete>
+    <select id="selectBooksId" resultType="java.lang.Integer">
+        select bid
+        from book_shelf
+        where shelf_id = #{shelfId}
+    </select>
+    <select id="selectNumOfCollection" resultType="java.lang.Integer">
+        select count(*)
+        from user_shelf
+        where shelf_id = #{shelfId}
+    </select>
+    <select id="selectSelfShelf" resultType="com.webproject.entity.Shelf">
+        select *
+        from shelf
+        <where>
+            <if test="shelfId != null and shelfId != -1">
+                and shelf_id = #{shelfId}
+            </if>
+            <if test="uid != null and uid != -1">
+                and uid = #{uid}
+            </if>
+            <if test="shelfName != null and shelfName != ''">
+                and shelf_name = #{shelfName}
+            </if>
+        </where>
+    </select>
+</mapper>
+
