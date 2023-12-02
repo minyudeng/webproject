@@ -28,5 +28,6 @@ public class BookVo {
         private int bid;
         private String bname;
         private String cover;
+        private String status;
     }
 }

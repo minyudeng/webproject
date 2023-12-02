@@ -2,12 +2,14 @@ package com.webproject.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.webproject.entity.User;
+import com.webproject.mapper.ShelfMapper;
 import com.webproject.mapper.UserMapper;
 import com.webproject.service.UserService;
 import com.webproject.utils.JwtUtil;
 import com.webproject.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +20,10 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper userMapper;
     @Autowired
+    private ShelfMapper shelfMapper;
+    @Autowired
     private JwtUtil jwtUtil;
-
+    @Transactional
     @Override
     public Result insert(User user) {
         if (selectByusername(user.getUsername()) != null){
@@ -30,10 +34,9 @@ public class UserServiceImpl implements UserService{
         try {
             userMapper.insert(user);
         } catch (Exception e){
-            e.printStackTrace();
-            return Result.error("插入失败");
+            throw new RuntimeException("注册失败");
         }
-        return Result.success("插入成功",user);
+        return Result.success("注册成功",user);
     }
 
     @Override

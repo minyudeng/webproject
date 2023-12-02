@@ -30,8 +30,6 @@ public class BookServiceImpl implements BookService {
     private CommentMapper commentMapper;
     @Autowired
     private SubcmtMapper subcmtMapper;
-    @Autowired
-    private CmtLikeMapper cmtLikeMapper;
 
     @Transactional
     @Override
@@ -264,4 +262,17 @@ public class BookServiceImpl implements BookService {
         }
         return false;
     }
+
+    @Override
+    public BookVo.BookSimpleShow getBookSimpleShow(int bid) {
+        Book book = bookMapper.getOneBookByBid(bid);
+        return BookVo.BookSimpleShow.builder()
+                .bid(bid)
+                .bname(book.getBname())
+                .status(book.getStatus())
+                .cover(book.getCover())
+                .build();
+    }
+
+
 }
