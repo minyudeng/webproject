@@ -8,7 +8,7 @@
         VALUES (#{uid},#{shelfName},#{intro},0)
     </insert>
     <insert id="insertBookShelf">
-        insert into book_shelf(shelf_id, bid) VALUES (#{shelfId},#{bid})
+        insert ignore into book_shelf(shelf_id, bid) VALUES (#{shelfId},#{bid})
     </insert>
     <insert id="insertUserShelf">
         insert into user_shelf(shelf_id, uid) VALUES (#{shelfId},#{bid})
@@ -38,6 +38,17 @@
     </delete>
     <delete id="delUserShelf">
         delete from user_shelf
+        <where>
+            <if test="shelfId != null and shelfId != -1">
+                and shelf_id = #{shelfId}
+            </if>
+            <if test="uid != null and uid != -1">
+                and uid = #{uid}
+            </if>
+        </where>
+    </delete>
+    <delete id="delShelf">
+        delete from shelf
         <where>
             <if test="shelfId != null and shelfId != -1">
                 and shelf_id = #{shelfId}

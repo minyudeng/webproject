@@ -10,6 +10,7 @@ import com.webproject.utils.Result;
 import com.webproject.vo.BookVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,6 +39,18 @@ public class ShelfServiceImpl implements ShelfService {
         shelfMapper.insertShelf(uid, shelfName, intro);
         return Result.successMsg("创建成功");
     }
+    @Transactional
+    @Override
+    public Result delShelf(int shelfId) {
+        try {
+            shelfMapper.delBookShelf(shelfId,-1);
+            shelfMapper.delUserShelf(shelfId,-1);
+            shelfMapper.delShelf(shelfId,-1);
+            return Result.success();
+        }catch (Exception e){
+            throw new RuntimeException("删除失败");
+        }
+    }
 
     @Override
     public Result updateShelf(int shelfId, String shelfName, String intro) {
@@ -56,6 +69,17 @@ public class ShelfServiceImpl implements ShelfService {
     }
 
     @Override
+    @Transactional
+    public Result addBookShelf(int shelfId, List<Integer> bidList) {
+        try {
+            bidList.forEach(i->shelfMapper.insertBookShelf(shelfId,i));
+            return Result.successMsg("添加成功");
+        }catch (Exception e){
+            throw new RuntimeException("添加失败");
+        }
+    }
+
+    @Override
     public List<BookVo.BookSimpleShow> getBooksByShelfId(int shelfId) {
         List<Integer> bidList = shelfMapper.selectBooksId(shelfId);
         List<BookVo.BookSimpleShow> retList = bidList
@@ -64,5 +88,16 @@ public class ShelfServiceImpl implements ShelfService {
                 .toList();
 //                .collect(Collectors.toList());
         return retList;
+    }
+
+    @Override
+    public Result delBookShelf(List<Integer> bidList, int shelfId, int uid) {
+        if (shelfId == 0){
+            bidList.forEach(bid -> {
+                bookService.collectionBook(bid,uid);
+            });
+        }
+        bidList.forEach(i -> shelfMapper.delBookShelf(shelfId,i));
+        return Result.successMsg("删除成功");
     }
 }

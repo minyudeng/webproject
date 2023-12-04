@@ -9,6 +9,7 @@ import java.util.List;
 public interface ShelfMapper {
     //Shelf
     void insertShelf(int uid, String shelfName,String intro);
+    void delShelf(int shelfId,int uid);
     void updateShelf(int shelfId, String shelfName,String intro);
     List<Shelf> selectSelfShelf(int shelfId,int uid,String shelfName);
 
