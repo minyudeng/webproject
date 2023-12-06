@@ -12,7 +12,8 @@ public class Shelf {
     private String shelfName;
     private String intro;
     @Column(name = "collection_num")
-    private String numOfCollection;
+    private int collectionNum;
+    private int show;
     @Column(name = "created_time")
     private LocalDateTime createdTime;
     @TableField(exist = false)

@@ -1,5 +1,6 @@
 package com.webproject.controller;
 
+import com.webproject.entity.Shelf;
 import com.webproject.service.ShelfService;
 import com.webproject.utils.Result;
 import lombok.Data;
@@ -20,8 +21,8 @@ public class ShelfController {
 
     //part: shelf
     @PostMapping("/shelf/add")
-    Result addShelf(int uid, String shelfName, String intro) {
-        return shelfService.addShelf(uid, shelfName, intro);
+    Result addShelf(int uid, String shelfName, String intro,int show) {
+        return shelfService.addShelf(uid, shelfName, intro,show);
     }
 
     @DeleteMapping("/shelf/del")
@@ -30,13 +31,15 @@ public class ShelfController {
     }
 
     @PutMapping("/shelf/put")
-    Result updateShelf(int shelfId, String shelfName, String intro) {
-        return shelfService.updateShelf(shelfId, shelfName, intro);
+    Result updateShelf(Shelf shelf) {
+        System.out.println(shelf);
+        return shelfService.updateShelf(shelf.getShelfId(), shelf.getShelfName(), shelf.getIntro(), shelf.getShow());
     }
 
     @GetMapping("/shelf/get")
-    Result getShelfByUid(@RequestParam int uid) {
-        return Result.success(shelfService.getShelfList(uid));
+    Result getShelfByUid(@RequestParam(required = false,defaultValue = "-1") int uid,
+                         @RequestParam(required = false,defaultValue = "-1") int show) {
+        return Result.success(shelfService.getShelfList(uid,show));
     }
 
     //part: bookShelf
@@ -72,6 +75,13 @@ public class ShelfController {
         return shelfService.delBookShelf(delObj.getBidList(), delObj.getShelfId(), delObj.getUid());
     }
     //part: userShelf
-
-
+    @PutMapping("/shelf/collection")
+    Result collectionShelf(int shelfId,int uid){
+        return shelfService.collectionShelf(shelfId, uid);
+    }
+    @GetMapping("/book-shelf/get")
+    Result getUserShelf(@RequestParam(required = false,defaultValue = "-1") int shelfId,
+                        @RequestParam(required = false,defaultValue = "-1") int uid){
+        return Result.success(shelfService.getUserShelf(shelfId, uid));
+    }
 }
