@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webproject.mapper.CodeMapper">
+
+    <insert id="insertCode">
+        insert into code(username, email, code)
+        VALUES (#{username},#{email},#{code})
+    </insert>
+    <update id="updateCode">
+        update code
+        set email = #{email},
+            code = #{code}
+        where username = #{username}
+    </update>
+    <select id="selectCode" resultType="com.webproject.entity.Code">
+        select *
+        from code
+        where username = #{username}
+    </select>
+</mapper>

@@ -7,6 +7,7 @@ import com.webproject.mapper.UserMapper;
 import com.webproject.service.UserService;
 import com.webproject.utils.JwtUtil;
 import com.webproject.utils.Result;
+import com.webproject.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -113,6 +114,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public void addReadHistory(int bid, int uid) {
         userMapper.insertReadHistory(bid,uid);
+    }
+
+    @Override
+    public Result updatePwd(UserVo userVo) {
+        userMapper.updatePwd(userVo.getUsername(), userVo.getPassword());
+        return Result.successMsg("更新成功");
     }
 
 }

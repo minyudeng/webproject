@@ -17,9 +17,9 @@ public class MyInterceptor implements WebMvcConfigurer {
         registration.addPathPatterns("/**");
         registration.excludePathPatterns("/login","/signup"
         ,"/book/get/**"
-        ,"/shelf/**"
-        ,"/book-shelf/**"
-        ,"/user-shelf/**");
+        ,"/chapter/**"
+        ,"/send-code"
+        ,"/reset/pwd");
 
     }
 

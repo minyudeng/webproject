@@ -4,6 +4,7 @@ package com.webproject.service;
 import com.github.pagehelper.Page;
 import com.webproject.entity.User;
 import com.webproject.utils.Result;
+import com.webproject.vo.UserVo;
 
 import java.util.List;
 import java.util.Map;
@@ -18,4 +19,5 @@ public interface UserService {
     Result update(User user);
     Map<String, Object> getUserInfo(String token);
     void addReadHistory(int bid, int uid);
+    Result updatePwd(UserVo userVo);
 }

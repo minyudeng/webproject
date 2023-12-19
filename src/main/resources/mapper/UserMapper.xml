@@ -8,6 +8,11 @@
         VALUES (#{bid}, #{uid}, NOW())
         ON DUPLICATE KEY UPDATE time = NOW();
     </insert>
+    <update id="updatePwd">
+        update user
+        set password = #{password}
+        where username = #{username}
+    </update>
 
     <select id="selectByUsername" resultType="com.webproject.entity.User">
         select * from user where username = #{username}

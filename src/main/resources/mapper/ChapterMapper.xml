@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webproject.mapper.ChapterMapper">
+
+    <insert id="insertChapter">
+        insert into chapter(bid, chapter_id, title, content, status)
+        values (#{bid}, #{chapterId}, #{title}, #{content}, #{status})
+    </insert>
+    <update id="updateChapter">
+        update chapter
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+        </set>
+        where bid = #{bid} and chapter_id = #{chapterId}
+    </update>
+    <select id="getChapters" resultType="com.webproject.entity.Chapter">
+        select *
+        from chapter
+        <where>
+            <if test="bid != null and bid != -1 ">
+                and bid = #{bid}
+            </if>
+            <if test="status != null and status != ''">
+                and `status` = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="getLatestChapterId" resultType="java.lang.Integer">
+        select IFNULL(
+            (select chapter_id from chapter order by chapter_id DESC LIMIT 1)
+            , -1)
+    </select>
+    <select id="getChapter" resultType="com.webproject.entity.Chapter">
+        select *
+        from chapter
+        <where>
+            <if test="bid != null and bid != -1 ">
+                and bid = #{bid}
+            </if>
+            <if test="chapterId != null and chapterId != -1 ">
+                and chapter_id = #{chapterId}
+            </if>
+            <if test="status != null and status != ''">
+                and `status` = #{status}
+            </if>
+        </where>
+    </select>
+</mapper>
