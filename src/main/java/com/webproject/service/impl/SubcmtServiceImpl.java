@@ -58,7 +58,7 @@ public class SubcmtServiceImpl implements SubcmtService {
                 subcmtMapper.addSubcmtLike(subcmtId, uid);
                 subcmtMapper.updateSubcmtLike(subcmtId);
             }catch (Exception e){
-                throw new RuntimeException("点赞成功");
+                throw new RuntimeException("点赞失败");
             }
             return Result.successMsg("点赞成功");
         }

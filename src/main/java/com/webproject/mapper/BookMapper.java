@@ -1,9 +1,11 @@
 package com.webproject.mapper;
 
 import com.webproject.entity.Book;
+import com.webproject.entity.ReadHistory;
 import com.webproject.entity.Type;
 import org.apache.ibatis.annotations.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -24,6 +26,7 @@ public interface BookMapper {
     void updateBookStatus(String status,int bid);
     void updateRating(double rating,int bid);
     void updateBookCollection(int num, int bid);
+    void updateBookTime(int bid, LocalDateTime time);
     //select
     //根据书名获得单个书籍,用于去重
     Book getOneBookByName(String bname);
@@ -56,5 +59,9 @@ public interface BookMapper {
     void addBookToType(int bid,int typeId);
     //删除书的所有类型，用于更新
     void delBookToType(int bid);
+
+
+    //获得阅读历史的书籍
+    List<ReadHistory> getHistoryBooks(int uid);
 
 }

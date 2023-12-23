@@ -274,5 +274,24 @@ public class BookServiceImpl implements BookService {
                 .build();
     }
 
+    @Override
+    public List<BookVo.BookHistoryVo> getHistoryBooks(int uid) {
+        List<BookVo.BookHistoryVo> ret = new ArrayList<>();
+        List<ReadHistory> list = bookMapper.getHistoryBooks(uid);
+        list.forEach(  i->{
+            Book book = bookMapper.getOneBookByBid(i.getBid());
+            BookVo.BookHistoryVo vo = BookVo.BookHistoryVo.builder()
+                    .bid(i.getBid())
+                    .bname(book.getBname())
+                    .cover(book.getCover())
+                    .intro(book.getIntro())
+                    .status(book.getStatus())
+                    .time(formatTo(i.getTime(),"yyyy-MM-dd HH:mm:ss"))
+                    .build();
+            ret.add(vo);
+        });
+        return ret;
+    }
+
 
 }

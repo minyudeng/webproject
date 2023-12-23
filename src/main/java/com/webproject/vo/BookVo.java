@@ -30,4 +30,14 @@ public class BookVo {
         private String cover;
         private String status;
     }
+    @Builder
+    @Data
+    public static class BookHistoryVo{
+        private int bid;
+        private String bname;
+        private String cover;
+        private String intro;
+        private String status;
+        private String time;
+    }
 }

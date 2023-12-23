@@ -68,9 +68,9 @@ public class ShelfServiceImpl implements ShelfService {
     }
 
     @Override
-    public List<ShelfVo.ShlefShowVo> getShelfList(int uid,int show) {
+    public List<ShelfVo.ShlefShowVo> getShelfList(int uid,int show,int userId) {
         List<ShelfVo.ShlefShowVo> ret = shelfMapper.selectShelf(-1,uid,null,show)
-                .stream().map(shelf -> buildShlefShowVo(shelf,uid))
+                .stream().map(shelf -> buildShlefShowVo(shelf,userId))
                 .toList();
 
         return ret;
@@ -126,6 +126,7 @@ public class ShelfServiceImpl implements ShelfService {
     @Override
     public Boolean isCollection(int shelfId, int uid) {
         List<UserShelf> userShelfs = shelfMapper.selectUserShelf(shelfId, uid);
+        System.out.println("shelfId"+shelfId+" uid="+uid);
         if (userShelfs.size() == 0){
             return false;
         }

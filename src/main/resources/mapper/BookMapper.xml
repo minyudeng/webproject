@@ -29,6 +29,11 @@
         set numOfCollection = #{num}
         where bid = #{bid}
     </update>
+    <update id="updateBookTime">
+        update book
+        set updated_at = #{time}
+        where bid = #{bid}
+    </update>
     <delete id="delBookToType">
         delete from book_type where bid = #{bid}
     </delete>
@@ -93,6 +98,12 @@
             </if>
         </where>
     </select>
+    <select id="getHistoryBooks" resultType="com.webproject.entity.ReadHistory">
+        select *
+        from read_history
+        where uid = #{uid}
+    </select>
+
 
 </mapper>
 

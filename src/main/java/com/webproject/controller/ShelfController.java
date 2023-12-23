@@ -38,8 +38,9 @@ public class ShelfController {
 
     @GetMapping("/shelf/get")
     Result getShelfByUid(@RequestParam(required = false,defaultValue = "-1") int uid,
-                         @RequestParam(required = false,defaultValue = "-1") int show) {
-        return Result.success(shelfService.getShelfList(uid,show));
+                         @RequestParam(required = false,defaultValue = "-1") int show,
+                         @RequestParam(required = false,defaultValue = "-1") int userId) {
+        return Result.success(shelfService.getShelfList(uid,show,userId));
     }
 
     //part: bookShelf

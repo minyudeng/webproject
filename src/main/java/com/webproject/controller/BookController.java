@@ -62,4 +62,10 @@ public class BookController {
         List<Type> typeList = bookService.getAllType();
         return Result.success(typeList);
     }
+
+
+    @GetMapping("/history/get-books")
+    public Result getHistoryBooks(@RequestParam int uid){
+        return Result.success(bookService.getHistoryBooks(uid));
+    }
 }

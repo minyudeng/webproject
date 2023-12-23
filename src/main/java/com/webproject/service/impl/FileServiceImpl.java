@@ -83,7 +83,12 @@ public class FileServiceImpl implements FileService {
     }
     public boolean isEmpty(String objectName){
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-        boolean ret = ossClient.doesObjectExist(bucketName,objectName);
+        boolean ret;
+        try {
+            ret = ossClient.doesObjectExist(bucketName,objectName);
+        }catch (Exception e){
+            return false;
+        }
         System.out.println("isEmpty= "+ret);
         ossClient.shutdown();
         return ret;

@@ -2,6 +2,7 @@ version: "3"
 services:
   service:
     image: demo
+    container_name: demo
     build: .
     ports:
       - "8081:8081"
@@ -15,10 +16,13 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=dmy2002916
+      MYSQL_ROOT_PASSWORD: dmy2002916
+      MYSQL_DATABASE: webwork
+      MYSQL_USER: user
+      MYSQL_PASS: dmy2002916
     volumes:
-      - /usr/local/mysql/log:/var/log/mysql # 映射日志目录，宿主机:容器
-      - /usr/local/mysql/data:/var/lib/mysql # 映射数据目录，宿主机:容器
-      - /usr/local/mysql/conf.d:/etc/mysql/conf.d # 映射配置目录，宿主机:容器
-      - /etc/localtime:/etc/localtime:ro
+      - ./mysql/log:/var/log/mysql # 映射日志目录，宿主机:容器
+      - ./mysql/data:/var/lib/mysql # 映射数据目录，宿主机:容器
+      - ./mysql/conf.d:/etc/mysql/conf.d # 映射配置目录，宿主机:容器
+      - ./init:/docker-entrypoint-initdb.d/
 

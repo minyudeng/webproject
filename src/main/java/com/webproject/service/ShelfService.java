@@ -13,7 +13,7 @@ public interface ShelfService {
     Result addShelf(int uid, String shelfName,String intro,int show);
     Result delShelf(int shelfId);
     Result updateShelf(int shelfId, String shelfName,String intro,int show);
-    List<ShelfVo.ShlefShowVo> getShelfList(int uid,int show);
+    List<ShelfVo.ShlefShowVo> getShelfList(int uid,int show,int userId);
     boolean isShelfNameExist(int uid,String shelfName);
     //part bookShelf
     Result addBookShelf(int shelfId, List<Integer> bidList);

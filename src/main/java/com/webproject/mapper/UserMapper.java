@@ -40,6 +40,7 @@ public interface UserMapper {
     //阅读历史
     void insertReadHistory(int bid, int uid);
 
+
     void updatePwd(String username,String password);
 
 }

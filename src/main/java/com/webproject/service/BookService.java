@@ -23,4 +23,8 @@ public interface BookService {
     Result collectionBook(int bid,int uid);
     boolean isCollection(int uid, int bid);
     BookVo.BookSimpleShow getBookSimpleShow(int bid);
+
+    List<BookVo.BookHistoryVo> getHistoryBooks(int uid);
+
+
 }
