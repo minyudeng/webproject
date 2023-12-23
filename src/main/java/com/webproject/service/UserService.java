@@ -18,6 +18,6 @@ public interface UserService {
     Result login(User user);
     Result update(User user);
     Map<String, Object> getUserInfo(String token);
-    void addReadHistory(int bid, int uid);
+    void addReadHistory(int bid, int uid,int chapterId);
     Result updatePwd(UserVo userVo);
 }

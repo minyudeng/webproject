@@ -37,7 +37,7 @@
     </select>
     <select id="getLatestChapterId" resultType="java.lang.Integer">
         select IFNULL(
-            (select chapter_id from chapter order by chapter_id DESC LIMIT 1)
+            (select chapter_id from chapter where bid = #{bid} order by chapter_id DESC LIMIT 1)
             , -1)
     </select>
     <select id="getChapter" resultType="com.webproject.entity.Chapter">

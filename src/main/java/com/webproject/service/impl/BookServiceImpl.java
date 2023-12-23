@@ -30,6 +30,8 @@ public class BookServiceImpl implements BookService {
     private CommentMapper commentMapper;
     @Autowired
     private SubcmtMapper subcmtMapper;
+    @Autowired
+    private ChapterMapper chapterMapper;
 
     @Transactional
     @Override
@@ -280,9 +282,16 @@ public class BookServiceImpl implements BookService {
         List<ReadHistory> list = bookMapper.getHistoryBooks(uid);
         list.forEach(  i->{
             Book book = bookMapper.getOneBookByBid(i.getBid());
+            Chapter chapter = chapterMapper.getChapter(i.getBid(),i.getChapterId(),"");
+            if (chapter == null){
+                chapter = new Chapter();
+                chapter.setTitle("");
+            }
             BookVo.BookHistoryVo vo = BookVo.BookHistoryVo.builder()
                     .bid(i.getBid())
                     .bname(book.getBname())
+                    .chapterId(i.getChapterId())
+                    .chapter(chapter.getTitle())
                     .cover(book.getCover())
                     .intro(book.getIntro())
                     .status(book.getStatus())

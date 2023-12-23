@@ -5,13 +5,18 @@
 <mapper namespace="com.webproject.mapper.UserMapper">
     <insert id="insertReadHistory">
         INSERT INTO read_history (bid, uid, time)
-        VALUES (#{bid}, #{uid}, NOW())
+        VALUES (#{bid}, #{uid},NOW())
         ON DUPLICATE KEY UPDATE time = NOW();
     </insert>
     <update id="updatePwd">
         update user
         set password = #{password}
         where username = #{username}
+    </update>
+    <update id="updateReadHistory">
+        update read_history
+        set chapter_id = #{chapterId}
+        where uid = #{uid} and bid = #{bid}
     </update>
 
     <select id="selectByUsername" resultType="com.webproject.entity.User">
@@ -25,5 +30,10 @@
                 nickname like CONCAT('%', #{likename}, '%') or
                 email like concat('%', #{likename}, '%')) and
                 role like concat('%', #{role}, '%')
+    </select>
+    <select id="getReadHistory" resultType="com.webproject.entity.ReadHistory">
+        select *
+        from read_history
+        where bid = #{bid} and uid = #{uid}
     </select>
 </mapper>

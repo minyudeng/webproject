@@ -112,8 +112,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void addReadHistory(int bid, int uid) {
-        userMapper.insertReadHistory(bid,uid);
+    public void addReadHistory(int bid, int uid,int chapterId) {
+        if (userMapper.getReadHistory(bid, uid) == null){
+            userMapper.insertReadHistory(bid,uid,chapterId);
+        }else {
+            if (chapterId != -1){
+                userMapper.updateReadHistory(bid, uid, chapterId);
+            }
+        }
     }
 
     @Override

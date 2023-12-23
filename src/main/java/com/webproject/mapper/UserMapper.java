@@ -1,6 +1,7 @@
 package com.webproject.mapper;
 
 import com.github.pagehelper.Page;
+import com.webproject.entity.ReadHistory;
 import com.webproject.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -38,7 +39,9 @@ public interface UserMapper {
 
 
     //阅读历史
-    void insertReadHistory(int bid, int uid);
+    void insertReadHistory(int bid, int uid,int chapterId);
+    void updateReadHistory(int bid, int uid,int chapterId);
+    ReadHistory getReadHistory(int bid, int uid);
 
 
     void updatePwd(String username,String password);

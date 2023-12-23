@@ -53,8 +53,9 @@ public class UserController {
 
     //阅读历史
     @PutMapping("/user/book-history")
-    public Result addReadHistory(int bid, int uid) {
-        userService.addReadHistory(bid, uid);
+    public Result addReadHistory(int bid, int uid,
+                                 @RequestParam(required = false,defaultValue = "-1") int chapterId) {
+        userService.addReadHistory(bid, uid,chapterId);
         return Result.success();
     }
 }

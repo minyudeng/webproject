@@ -36,6 +36,8 @@ public class BookVo {
         private int bid;
         private String bname;
         private String cover;
+        private int chapterId;
+        private String chapter;
         private String intro;
         private String status;
         private String time;
